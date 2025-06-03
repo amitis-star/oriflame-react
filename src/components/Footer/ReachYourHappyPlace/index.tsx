@@ -4,10 +4,10 @@ const ReachYourHapyPlace = () => {
   return (
     <>
       <div className="w-full h-55 py-12.5 flex flex-col justify-between gap-y-5 items-center">
-        <h3 className="text-40 text-gray-700 font-700">
+        <h3 className="text-30 lg:text-40 text-gray-700 font-700 px-4">
           Reach your happy place
         </h3>
-        <span className="text-14 text-gray-500 font-400 w-[600px] h-32 text-center">
+        <span className="text-14 text-gray-500 font-400 md:w-[600px] text-center px-4">
           The art of living well, it’s personal. We believe true wellbeing feels
           different to everyone – and let’s be honest, it often means different
           things at different moments. Sometimes you need a cosy night in
@@ -18,9 +18,9 @@ const ReachYourHapyPlace = () => {
           community with an entrepreneurial spirit – a supportive cheer squad
           ready to empower your journey with the beauty of your wellbeing.
           Together, we’ll help you carve out your own path to wellbeing – so you
-          can enjoy the ride. Because happiness looks good on everyone!{" "}
+          can enjoy the ride. Because happiness looks good on everyone!
         </span>
-        <div className="w-22 h-0 bg-blue-400"></div>
+        <div className="w-21 h-0 bg-blue-400 border border-blue-400"></div>
       </div>
     </>
   );

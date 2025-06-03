@@ -16,3 +16,46 @@
     display: none !important;
   }
 }
+
+@media (max-width: 425px) {
+  .flex-425-col {
+    flex-direction: column !important;
+  }
+  .order-image-425 {
+    order: 1 !important;
+  }
+  .order-cards-425 {
+    order: 2 !important;
+  }
+  .cards-wrap-425 {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+  .card-50w-425 {
+    width: 50% !important;
+  }
+  .show-on-425 {
+    display: block !important;
+  }
+  .show-on-425 > * {
+    display: block !important;
+  }
+}
+
+@media (max-width: 425px) {
+  .show-on-425 {
+    display: block !important;
+    visibility: visible !important;
+    height: auto !important;
+    opacity: 1 !important;
+  }
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

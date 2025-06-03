@@ -9,14 +9,19 @@ import OriflameOnMe from "./OriflameOnMe";
 import HealthierGut from "./HealthierGut";
 const Body = () => {
   return (
-    <div className="container">
-      {/* <ItemsList /> */}
-      {/* <WhatsNew /> */}
-      {/* <IconsofOurTime /> */}
-      <BestOffers />
-      {/* <OriflameOnMe /> */}
-      {/* <HealthierGut/> */}
-    </div>
+    <>
+      <div className="container">
+        <ItemsList />
+      </div>
+      <div className="w-full h-[1px] bg-gray-200 mb-15 px-00"></div>
+      <div className="container">
+        <WhatsNew />
+        <IconsofOurTime />
+        <BestOffers />
+        <OriflameOnMe />
+        <HealthierGut />
+      </div>
+    </>
   );
 };
 export default Body;

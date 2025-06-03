@@ -42,7 +42,6 @@ const slidesData: {
     ],
     layout: "column-center",
   },
-  // You can add more slides here as needed
 ];
 
 const layoutClasses: Record<LayoutType, string> = {
@@ -56,58 +55,101 @@ const SwiperOriflameOnMe = () => {
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
   const [swiperInstance, setSwiperInstance] = useState<any>(null);
+  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (swiperInstance && prevRef.current && nextRef.current) {
-      // @ts-ignore
       swiperInstance.params.navigation.prevEl = prevRef.current;
-      // @ts-ignore
       swiperInstance.params.navigation.nextEl = nextRef.current;
-
-      swiperInstance.navigation.destroy(); // reset navigation
+      swiperInstance.navigation.destroy();
       swiperInstance.navigation.init();
       swiperInstance.navigation.update();
     }
-  }, [swiperInstance]);
+  }, [swiperInstance, windowWidth]);
+
+  const flattenedSlides = slidesData.flatMap(({ id, images, layout }) =>
+    images.map((img, idx) => ({
+      id: `${id}-${idx}`,
+      src: img.src,
+      objectPosition: img.objectPosition,
+      layout,
+    }))
+  );
 
   return (
-    <div className="mt-10 mb-10 h-71 w-full relative">
+    <div className="mt-10 mb-10  w-full relative">
       <Swiper
-        slidesPerView={5}
-        spaceBetween={30}
         modules={[Navigation]}
         onSwiper={setSwiperInstance}
         navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
         className="mySwiper"
+        slidesPerView={windowWidth < 1024 ? "auto" : 3}
+        spaceBetween={windowWidth < 1024 ? 10 : 20}
+        centeredSlides={windowWidth < 1024} 
+        style={{ padding: 0 }} 
       >
-        {slidesData.map(({ id, images, layout }) => (
-          <SwiperSlide key={id}>
-            <div
-              className={`w-41 h-71 cursor-pointer ${layoutClasses[layout]}`}
-            >
-              {images.map(({ src, objectPosition }, idx) => (
+        {windowWidth < 1024
+          ? flattenedSlides.map(({ id, src, objectPosition, layout }) => (
+              <SwiperSlide
+                key={id}
+                style={{
+                  width: 280,
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <div
-                  key={idx}
-                  className={`w-41 h-41 overflow-hidden relative group ${
-                    images.length > 1 ? "" : ""
-                  }`}
+                  className={`cursor-pointer`}
+                  style={{ width: 280, height: "100%" }}
                 >
-                  <img
-                    src={src}
-                    alt="oriflame"
-                    className={`w-full h-full object-cover object-${objectPosition}`}
-                  />
-                  <div className="absolute inset-0 bg-gray-700 bg-opacity-0 group-hover:bg-opacity-50 flex justify-center items-center transition duration-300">
-                    <span className="text-gray-300 text-8 opacity-0 group-hover:opacity-100 transition duration-300">
-                      @Oriflame
-                    </span>
+                  <div className="w-full h-41 overflow-hidden relative group">
+                    <img
+                      src={src}
+                      alt="oriflame"
+                      className={`w-full h-full object-cover object-${objectPosition}`}
+                    />
+                    <div className="absolute inset-0 bg-gray-700 bg-opacity-0 group-hover:bg-opacity-50 flex justify-center items-center transition duration-300">
+                      <span className="text-gray-300 text-8 opacity-0 group-hover:opacity-100 transition duration-300">
+                        @Oriflame
+                      </span>
+                    </div>
                   </div>
                 </div>
-              ))}
-            </div>
-          </SwiperSlide>
-        ))}
-
+              </SwiperSlide>
+            ))
+          : slidesData.map(({ id, images, layout }) => (
+              <SwiperSlide key={id}>
+                <div
+                  className={`w-41 cursor-pointer ${layoutClasses[layout]}`}
+                >
+                  {images.map(({ src, objectPosition }, idx) => (
+                    <div
+                      key={idx}
+                      className="w-41 h-41 overflow-hidden relative group"
+                    >
+                      <img
+                        src={src}
+                        alt="oriflame"
+                        className={`w-full h-full object-cover object-${objectPosition}`}
+                      />
+                      <div className="absolute inset-0 bg-gray-700 bg-opacity-0 group-hover:bg-opacity-50 flex justify-center items-center transition duration-300">
+                        <span className="text-gray-300 text-8 opacity-0 group-hover:opacity-100 transition duration-300">
+                          @Oriflame
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </SwiperSlide>
+            ))}
         <button
           ref={prevRef}
           className="w-11 h-11 rounded-full absolute bottom-0 left-0 z-10 bg-white p-2.5 cursor-pointer"

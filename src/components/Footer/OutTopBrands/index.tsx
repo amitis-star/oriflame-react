@@ -14,20 +14,26 @@ const brands = [
 
 const OurTopBrands = () => {
   return (
-    <div className="w-full h-[433px] py-12.5 flex flex-col justify-between gap-y-5 items-center">
-      <h3 className="text-40 text-gray-700 font-700">Our top brands</h3>
-      <div className="w-[950px] h-35 flex justify-evenly items-center">
+    <div className="w-full  py-12.5 flex flex-col justify-between gap-y-5 items-center">
+      <h3 className="text-30 lg:text-40 text-gray-700 font-700">
+        Our top brands
+      </h3>
+      <button className="w-29 h-11 rounded-full py-3 text-black text-14 border-gray-800 border-solid border-2 font-500 leading-3 hover:bg-gray-200 block sm:hidden">
+        VIEW ALL BRANDS
+      </button>
+      <div className="grid grid-cols-2 gap-4 sm:flex sm:justify-evenly sm:items-center">
         {brands.map(({ src, alt }, index) => (
           <img
             key={index}
             src={src}
             alt={alt}
-            className="w-35 h-35 rounded-full"
+            className="w-31 h-31 md:w-[147px] md:h-[147px] lg:w-35 lg:h-35 rounded-full"
           />
         ))}
       </div>
-      <button className="w-29 h-11 rounded-full py-3 text-black text-14 border-gray-800 border-solid border-2 font-500 leading-3 hover:bg-gray-200">
-        LEARN HOW
+
+      <button className="w-29 h-11 rounded-full py-3 text-black text-14 border-gray-800 border-solid border-2 font-500 leading-3 hover:bg-gray-200 hidden sm:block">
+        VIEW ALL BRANDS
       </button>
     </div>
   );

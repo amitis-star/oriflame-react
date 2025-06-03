@@ -20,12 +20,12 @@ const Home = () => {
 
   return (
     <>
-      {/* <Header
+      <Header
         isShoppingBagOpen={isShoppingBagOpen}
         setShoppingBagOpen={setShoppingBagOpen}
         onToggleJoinUs={toggleJoinUS}
-      /> */}
-      {/* <JoinUs show={isJoinUsOpen} onClose={closeJoinUs} /> */}
+      />
+      <JoinUs show={isJoinUsOpen} onClose={closeJoinUs} />
 
       <div
         className={`transition-filter duration-300 ${
@@ -34,10 +34,10 @@ const Home = () => {
             : ""
         }`}
       >
-        {/* <SwiperImage /> */}
+        <SwiperImage />
         <Body />
-        {/* <Footer /> */}
-        {/* <ChatWithUs /> */}
+        <Footer />
+        <ChatWithUs />
       </div>
     </>
   );

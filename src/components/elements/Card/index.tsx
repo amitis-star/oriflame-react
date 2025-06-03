@@ -29,31 +29,22 @@ const Card: React.FC<CardProps> = ({
   const totalStars = 5;
 
   const [iconStates, setIconStates] = useState({
-    heart: { active: false, hovered: false },
-    store: { active: false, hovered: false },
+    heart: { active: false },
+    store: { active: false },
   });
 
   const toggleActive = (icon: "heart" | "store") => {
     setIconStates((prev) => ({
       ...prev,
-      [icon]: { ...prev[icon], active: !prev[icon].active },
+      [icon]: { active: !prev[icon].active },
     }));
   };
 
-  const setHover = (icon: "heart" | "store", hovered: boolean) => {
-    setIconStates((prev) => ({
-      ...prev,
-      [icon]: { ...prev[icon], hovered },
-    }));
-  };
-
-  const HeartIcon =
-    iconStates.heart.active || iconStates.heart.hovered ? PinkHeart : Heart;
-  const StoreIcon =
-    iconStates.store.active || iconStates.store.hovered ? BlackStore : Store;
+  const HeartIcon = iconStates.heart.active ? PinkHeart : Heart;
+  const StoreIcon = iconStates.store.active ? BlackStore : Store;
 
   return (
-    <div className="w-[177px] md:w-[218px] lg:w-[230px] h-full bg-gray-100">
+    <div className="w-[177px] md:w-[208px] h-full bg-gray-100">
       <div className="group overflow-hidden w-full aspect-square relative cursor-pointer">
         <img
           src={image}
@@ -68,16 +59,12 @@ const Card: React.FC<CardProps> = ({
         <div
           className="absolute w-11 h-11 bottom-2 right-2 rounded-full flex justify-center items-center p-1.5 shadow-xl bg-white"
           onClick={() => toggleActive("store")}
-          onMouseEnter={() => setHover("store", true)}
-          onMouseLeave={() => setHover("store", false)}
         >
           <StoreIcon />
         </div>
         <div
           className="absolute w-11 h-11 bottom-16 right-2 rounded-full flex justify-center items-center p-1.5 shadow-xl bg-white"
           onClick={() => toggleActive("heart")}
-          onMouseEnter={() => setHover("heart", true)}
-          onMouseLeave={() => setHover("heart", false)}
         >
           <HeartIcon />
         </div>
