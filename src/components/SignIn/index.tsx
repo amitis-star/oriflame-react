@@ -105,16 +105,20 @@ const SignIn: React.FC = () => {
             <label
               htmlFor="username"
               className={`absolute left-2 transition-all duration-300 origin-left
-        peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500
-        peer-focus:-top-4 peer-focus:scale-75 peer-focus:text-green-600
-        ${
-          usernameError
-            ? "-top-4 scale-75 text-red-600"
-            : username && !usernameError
-            ? "-top-4 scale-75 text-green-600"
-            : "top-4 scale-100 text-gray-500"
-        }
-      `}
+                peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:${
+                  usernameError ? "text-red-600" : "text-gray-500"
+                }
+                peer-focus:-top-4 peer-focus:scale-75 peer-focus:${
+                  usernameError ? "text-red-600" : "text-green-600"
+                }
+                ${
+                  usernameError
+                    ? "-top-4 scale-75 text-red-600"
+                    : username && !usernameError
+                    ? "-top-4 scale-75 text-green-600"
+                    : ""
+                }
+              `}
             >
               Member number or e-mail
             </label>
@@ -123,15 +127,13 @@ const SignIn: React.FC = () => {
               {usernameError ? (
                 <>
                   <ErrorIcon className="text-red-800 w-6 h-6" />
-                  {wrappedTooltip(
-                    "You can sign in using your consultant number email or telephone number"
-                  )}
+                  {wrappedTooltip("Enter email or brand partner number.")}
                 </>
               ) : (
                 <>
                   <InfoCircleIcon className="text-gray-500 w-6 h-6" />
                   {wrappedTooltip(
-                    "Helo, this is an info tooltip. You can put longer text here and it will wrap nicely."
+                    "You can sign in using your consultant number email or telephone number."
                   )}
                 </>
               )}
@@ -172,16 +174,20 @@ const SignIn: React.FC = () => {
             <label
               htmlFor="password"
               className={`absolute left-2 transition-all duration-300 origin-left
-        peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500
-        peer-focus:-top-4 peer-focus:scale-75 peer-focus:text-green-600
-        ${
-          passwordError
-            ? "-top-4 scale-75 text-red-600"
-            : password && !passwordError
-            ? "-top-4 scale-75 text-green-600"
-            : "top-4 scale-100 text-gray-500"
-        }
-      `}
+                peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:${
+                  passwordError ? "text-red-600" : "text-gray-500"
+                }
+                peer-focus:-top-4 peer-focus:scale-75 peer-focus:${
+                  passwordError ? "text-red-600" : "text-green-600"
+                }
+                ${
+                  passwordError
+                    ? "-top-4 scale-75 text-red-600"
+                    : password && !passwordError
+                    ? "-top-4 scale-75 text-green-600"
+                    : ""
+                }
+              `}
             >
               Password
             </label>
