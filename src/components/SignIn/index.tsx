@@ -7,24 +7,19 @@ import CrossedEyeIcon from "../../assets/icons/CrossedEyeIcon";
 import ErrorIcon from "../../assets/icons/Error";
 
 const SignIn: React.FC = () => {
-  // States for password visibility
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  // States for username input
   const [username, setUsername] = useState<string>("");
   const [usernameHasTyped, setUsernameHasTyped] = useState<boolean>(false);
   const [usernameError, setUsernameError] = useState<boolean>(false);
 
-  // States for password input
   const [password, setPassword] = useState<string>("");
   const [passwordHasTyped, setPasswordHasTyped] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
 
-  // Handlers for username
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const val = e.target.value;
     setUsername(val);
-
     if (val.length > 0) {
       setUsernameHasTyped(true);
       setUsernameError(false);
@@ -39,11 +34,9 @@ const SignIn: React.FC = () => {
     }
   };
 
-  // Handlers for password
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const val = e.target.value;
     setPassword(val);
-
     if (val.length > 0) {
       setPasswordHasTyped(true);
       setPasswordError(false);
@@ -58,31 +51,24 @@ const SignIn: React.FC = () => {
     }
   };
 
-  // Tooltip component with fixed width and wrapped text
-  const wrappedTooltip = (text: string) => (
-    <span
-      className="
-        absolute top-full mt-1 left-1/2 transform -translate-x-1/2
-        bg-gray-200 text-black rounded px-2 py-1 opacity-0 pointer-events-none
-        transition-opacity duration-300 text-center
-        group-hover:opacity-100
-        break-words
-      "
-      style={{ width: "300px", fontSize: "12px" }}
-      aria-hidden="true"
-    >
-      {text}
-    </span>
-  );
-
-  // Common classNames for inputs with dynamic error styling
-  const usernameInputBorderClass = usernameError
-    ? "border-red-600"
-    : "border-b-gray-600 focus-within:border-green-600";
-
-  const passwordInputBorderClass = passwordError
-    ? "border-red-600"
-    : "border-b-gray-600 focus-within:border-green-600";
+  // Tooltip with fixed width and wrapped text
+  const wrappedTooltip = (text: string) => {
+    return (
+      <span
+        className="
+          absolute top-full mt-1 left-1/2 transform -translate-x-1/2
+          bg-gray-200 text-black rounded px-2 py-1 opacity-0 pointer-events-none
+          transition-opacity duration-300 text-center
+          group-hover:opacity-100
+          break-words
+        "
+        style={{ width: "300px", fontSize: "12px" }}
+        aria-hidden="true"
+      >
+        {text}
+      </span>
+    );
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -96,9 +82,13 @@ const SignIn: React.FC = () => {
             Sign in
           </p>
 
-          {/* Username Input */}
+          {/* Username */}
           <div
-            className={`relative w-full h-12.5 border-b-2 transition duration-300 ${usernameInputBorderClass}`}
+            className={`relative w-full h-12.5 border-b-2 transition duration-300 ${
+              usernameError
+                ? "border-red-600"
+                : "border-b-gray-600 focus-within:border-green-600"
+            }`}
           >
             <input
               type="text"
@@ -115,16 +105,16 @@ const SignIn: React.FC = () => {
             <label
               htmlFor="username"
               className={`absolute left-2 transition-all duration-300 origin-left
-                peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500
-                peer-focus:-top-4 peer-focus:scale-75 peer-focus:text-green-600
-                ${
-                  usernameError
-                    ? "-top-4 scale-75 text-red-600"
-                    : username && !usernameError
-                    ? "-top-4 scale-75 text-green-600"
-                    : "top-4 scale-100 text-gray-500"
-                }
-              `}
+        peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500
+        peer-focus:-top-4 peer-focus:scale-75 peer-focus:text-green-600
+        ${
+          usernameError
+            ? "-top-4 scale-75 text-red-600"
+            : username && !usernameError
+            ? "-top-4 scale-75 text-green-600"
+            : "top-4 scale-100 text-gray-500"
+        }
+      `}
             >
               Member number or e-mail
             </label>
@@ -148,11 +138,10 @@ const SignIn: React.FC = () => {
             </div>
           </div>
 
-          {/* Username error message */}
           <div className="flex flex-col space-y-1 ml-1 mt-1">
             {usernameError && (
               <p className="text-red-600 text-12 font-400">
-                Enter username or brand partner number
+                Username is required.
               </p>
             )}
           </div>
@@ -161,9 +150,13 @@ const SignIn: React.FC = () => {
             Sign in with mobile phone
           </div>
 
-          {/* Password Input */}
+          {/* Password */}
           <div
-            className={`relative w-full h-12.5 border-b-2 transition duration-300 mt-6 flex items-center ${passwordInputBorderClass}`}
+            className={`relative w-full h-12.5 border-b-2 transition duration-300 mt-6 flex items-center ${
+              passwordError
+                ? "border-red-600"
+                : "border-b-gray-600 focus-within:border-green-600"
+            }`}
           >
             <input
               type={showPassword ? "text" : "password"}
@@ -176,20 +169,19 @@ const SignIn: React.FC = () => {
               onChange={handlePasswordChange}
               onBlur={handlePasswordBlur}
             />
-
             <label
               htmlFor="password"
               className={`absolute left-2 transition-all duration-300 origin-left
-                peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500
-                peer-focus:-top-4 peer-focus:scale-75 peer-focus:text-green-600
-                ${
-                  passwordError
-                    ? "-top-4 scale-75 text-red-600"
-                    : password && !passwordError
-                    ? "-top-4 scale-75 text-green-600"
-                    : "top-4 scale-100 text-gray-500"
-                }
-              `}
+        peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500
+        peer-focus:-top-4 peer-focus:scale-75 peer-focus:text-green-600
+        ${
+          passwordError
+            ? "-top-4 scale-75 text-red-600"
+            : password && !passwordError
+            ? "-top-4 scale-75 text-green-600"
+            : "top-4 scale-100 text-gray-500"
+        }
+      `}
             >
               Password
             </label>
@@ -217,7 +209,6 @@ const SignIn: React.FC = () => {
             Forgot your password?
           </div>
 
-          {/* Keep me signed in */}
           <div className="flex justify-start items-center gap-2 mt-4">
             <input
               type="checkbox"
