@@ -7,22 +7,24 @@ import CrossedEyeIcon from "../../assets/icons/CrossedEyeIcon";
 import ErrorIcon from "../../assets/icons/Error";
 
 const SignIn: React.FC = () => {
+  // States for password visibility
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  // Username states
+  // States for username input
   const [username, setUsername] = useState<string>("");
   const [usernameHasTyped, setUsernameHasTyped] = useState<boolean>(false);
   const [usernameError, setUsernameError] = useState<boolean>(false);
 
-  // Password states
+  // States for password input
   const [password, setPassword] = useState<string>("");
   const [passwordHasTyped, setPasswordHasTyped] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
 
-  // Handlers with typed events
+  // Handlers for username
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const val = e.target.value;
     setUsername(val);
+
     if (val.length > 0) {
       setUsernameHasTyped(true);
       setUsernameError(false);
@@ -37,9 +39,11 @@ const SignIn: React.FC = () => {
     }
   };
 
+  // Handlers for password
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const val = e.target.value;
     setPassword(val);
+
     if (val.length > 0) {
       setPasswordHasTyped(true);
       setPasswordError(false);
@@ -54,6 +58,32 @@ const SignIn: React.FC = () => {
     }
   };
 
+  // Tooltip component with fixed width and wrapped text
+  const wrappedTooltip = (text: string) => (
+    <span
+      className="
+        absolute top-full mt-1 left-1/2 transform -translate-x-1/2
+        bg-gray-200 text-black rounded px-2 py-1 opacity-0 pointer-events-none
+        transition-opacity duration-300 text-center
+        group-hover:opacity-100
+        break-words
+      "
+      style={{ width: "300px", fontSize: "12px" }}
+      aria-hidden="true"
+    >
+      {text}
+    </span>
+  );
+
+  // Common classNames for inputs with dynamic error styling
+  const usernameInputBorderClass = usernameError
+    ? "border-red-600"
+    : "border-b-gray-600 focus-within:border-green-600";
+
+  const passwordInputBorderClass = passwordError
+    ? "border-red-600"
+    : "border-b-gray-600 focus-within:border-green-600";
+
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="flex justify-center min-h-screen">
@@ -66,13 +96,9 @@ const SignIn: React.FC = () => {
             Sign in
           </p>
 
-          {/* Username */}
+          {/* Username Input */}
           <div
-            className={`relative w-full h-12.5 border-b-2 transition duration-300 ${
-              usernameError
-                ? "border-red-600"
-                : "border-b-gray-600 focus-within:border-green-600"
-            }`}
+            className={`relative w-full h-12.5 border-b-2 transition duration-300 ${usernameInputBorderClass}`}
           >
             <input
               type="text"
@@ -89,50 +115,55 @@ const SignIn: React.FC = () => {
             <label
               htmlFor="username"
               className={`absolute left-2 transition-all duration-300 origin-left
-    peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500
-    peer-focus:-top-4 peer-focus:scale-75 peer-focus:text-green-600
-    ${
-      usernameError
-        ? "-top-4 scale-75 text-red-600"
-        : username && !usernameError
-        ? "-top-4 scale-75 text-green-600"
-        : "top-4 scale-100 text-gray-500"
-    }
-  `}
+                peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500
+                peer-focus:-top-4 peer-focus:scale-75 peer-focus:text-green-600
+                ${
+                  usernameError
+                    ? "-top-4 scale-75 text-red-600"
+                    : username && !usernameError
+                    ? "-top-4 scale-75 text-green-600"
+                    : "top-4 scale-100 text-gray-500"
+                }
+              `}
             >
               Member number or e-mail
             </label>
 
-            <div className="absolute right-2 top-4">
+            <div className="absolute right-2 top-4 group cursor-pointer">
               {usernameError ? (
-                <ErrorIcon className="text-red-800 w-6 h-6" />
+                <>
+                  <ErrorIcon className="text-red-800 w-6 h-6" />
+                  {wrappedTooltip(
+                    "You can sign in using your consultant number email or telephone number"
+                  )}
+                </>
               ) : (
-                <InfoCircleIcon className="text-gray-500 w-6 h-6" />
+                <>
+                  <InfoCircleIcon className="text-gray-500 w-6 h-6" />
+                  {wrappedTooltip(
+                    "Helo, this is an info tooltip. You can put longer text here and it will wrap nicely."
+                  )}
+                </>
               )}
             </div>
           </div>
 
-          {/* Username error messages container */}
+          {/* Username error message */}
           <div className="flex flex-col space-y-1 ml-1 mt-1">
             {usernameError && (
               <p className="text-red-600 text-12 font-400">
-                Username is required.
+                Enter username or brand partner number
               </p>
             )}
           </div>
 
-          {/* Sign in with mobile phone - no margin to remove gap */}
           <div className="text-12 text-gray-600 font-400 underline hover:text-emerald-600 cursor-pointer mt-2 leading-none">
             Sign in with mobile phone
           </div>
 
-          {/* Password */}
+          {/* Password Input */}
           <div
-            className={`relative w-full h-12.5 border-b-2 transition duration-300 mt-6 flex items-center ${
-              passwordError
-                ? "border-red-600"
-                : "border-b-gray-600 focus-within:border-green-600"
-            }`}
+            className={`relative w-full h-12.5 border-b-2 transition duration-300 mt-6 flex items-center ${passwordInputBorderClass}`}
           >
             <input
               type={showPassword ? "text" : "password"}
@@ -145,24 +176,24 @@ const SignIn: React.FC = () => {
               onChange={handlePasswordChange}
               onBlur={handlePasswordBlur}
             />
+
             <label
               htmlFor="password"
               className={`absolute left-2 transition-all duration-300 origin-left
-      peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500
-      peer-focus:-top-4 peer-focus:scale-75 peer-focus:text-green-600
-      ${
-        passwordError
-          ? "-top-4 scale-75 text-red-600"
-          : password && !passwordError
-          ? "-top-4 scale-75 text-green-600"
-          : "top-4 scale-100 text-gray-500"
-      }
-    `}
+                peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:text-gray-500
+                peer-focus:-top-4 peer-focus:scale-75 peer-focus:text-green-600
+                ${
+                  passwordError
+                    ? "-top-4 scale-75 text-red-600"
+                    : password && !passwordError
+                    ? "-top-4 scale-75 text-green-600"
+                    : "top-4 scale-100 text-gray-500"
+                }
+              `}
             >
               Password
             </label>
 
-            {/* Eye icon toggle */}
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
@@ -172,33 +203,39 @@ const SignIn: React.FC = () => {
               {showPassword ? <CrossedEyeIcon /> : <EyeIcon />}
             </button>
 
-            {/* Error icon */}
-            {passwordError && (
-              <ErrorIcon className="ml-2 text-red-800 w-6 h-6" />
-            )}
+            <div className="group ml-2 relative cursor-pointer">
+              {passwordError && (
+                <>
+                  <ErrorIcon className="text-red-800 w-6 h-6" />
+                  {wrappedTooltip("Enter password")}
+                </>
+              )}
+            </div>
           </div>
 
-          {/* Forgot password */}
           <div className="text-12 text-gray-600 font-400 underline hover:text-emerald-600 transition duration-300 cursor-pointer mt-2">
             Forgot your password?
           </div>
 
-          {/* Keep Me Signed In */}
+          {/* Keep me signed in */}
           <div className="flex justify-start items-center gap-2 mt-4">
             <input
               type="checkbox"
               className="w-4 h-4 accent-black focus:ring-black"
             />
             <p className="text-16 font-200 cursor-pointer">Keep me signed in</p>
-            <InfoCircleIcon className="text-gray-400" />
+            <div className="group relative cursor-pointer">
+              <InfoCircleIcon className="text-gray-400" />
+              {wrappedTooltip(
+                "You will stay logged in for 30 days. Choose this option only on personal devices for safety."
+              )}
+            </div>
           </div>
 
-          {/* Sign In Button */}
           <button className="w-full rounded-full h-11.5 bg-black text-white font-600 text-16 mb-2.5 py-2.5 px-5 mt-7.5 hover:bg-neutral-500 transition duration-300 cursor-pointer">
             SIGN IN
           </button>
 
-          {/* VIP Option */}
           <p className="underline text-center text-14 font-700 text-gray-800 hover:text-emerald-600 transition duration-300">
             BECOME A VIP CUSTOMER
           </p>
