@@ -3,6 +3,7 @@ import React, { useState, KeyboardEvent } from "react";
 interface HamburgerToggleProps {
   isOpen?: boolean;
   onToggle?: (isOpen: boolean) => void;
+  className?: string;
 }
 
 const HamburgerToggle: React.FC<HamburgerToggleProps> = ({
@@ -31,7 +32,7 @@ const HamburgerToggle: React.FC<HamburgerToggleProps> = ({
 
   return (
     <div
-      className="w-8 h-8 flex flex-col items-center justify-center cursor-pointer z-100"
+      className=" flex flex-col items-center justify-center cursor-pointer z-100"
       onClick={toggle}
       role="button"
       aria-pressed={isOpen}
