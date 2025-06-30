@@ -60,12 +60,12 @@ const Header: React.FC<HeaderProps> = ({
           }`}
         />
       )}
-      <div className="w-full h-9 bg-blue-100 flex items-center justify-center">
+      {/* <div className="h-9 bg-blue-100 flex items-center justify-center">
         <Swiper
           modules={[Autoplay]}
           autoplay={{ delay: 4000, disableOnInteraction: false }}
           loop
-          className="w-full h-full flex items-center justify-center text-center"
+          className="h-full flex items-center justify-center text-center"
         >
           <SwiperSlide>
             <p className="text-14 text-gray-700 leading-9 font-700">
@@ -88,24 +88,27 @@ const Header: React.FC<HeaderProps> = ({
             </p>
           </SwiperSlide>
         </Swiper>
-      </div>
-      <div className="container">
-        <div className="relative w-full h-16 flex items-center">
-          <div className="w-1/6 h-11 flex items-center gap-6">
+      </div> */}
+      <div className="container-fluid px-7.5">
+        <div className="relative h-16 flex items-center">
+          {/* Left Part */}
+          <div className="w-1/6 lg:w-[18%] h-11 flex items-center gap-6">
             <HamburgerMenu isOpen={isOpen} onToggle={setIsOpen} />
-
             <OriflameLogo />
           </div>
-          <div className="w-5/6 h-11 flex justify-between">
-            <div className="relative z-50 h-full w-3/5">
-              <div className="bg-gray-200 h-full w-900 rounded-full flex items-center pl-4">
-                <Search className="mt-2" />
+
+          {/* Right Part */}
+          <div className="w-5/6 lg:w-[82%] h-11 flex justify-between text-[16px] lg:text-[14px]">
+            {/* Search Input */}
+            <div className="relative z-50 h-full w-4/5 mx-2 xl:mx-4">
+              <div className="bg-gray-200 h-full rounded-full flex items-center px-4">
+                <Search className="mr-2" />
                 <input
                   type="text"
                   ref={inputRef}
                   onInput={handleInput}
                   placeholder="Search 60+ brands, 1000+ beauty and nutrition products"
-                  className="bg-transparent py-0.1 px-0 w-[94%] font-400 focus:outline-none focus:ring-0 border-none"
+                  className="bg-transparent py-0.5 w-full font-400 focus:outline-none focus:ring-0 border-none text-[14px] lg:text-[14px]"
                 />
                 <button
                   id="clear-btn"
@@ -116,18 +119,22 @@ const Header: React.FC<HeaderProps> = ({
                 </button>
               </div>
             </div>
-            <div className="h-full w-2/5 flex justify-end gap-10 items-center">
+
+            {/* Right Icons */}
+            <div className="h-full w-1/5 flex justify-end gap-3 xl:gap-6 items-center">
               <div
-                className="h-6 text-18 font-400 cursor-pointer ml-20 hover:text-gray-500"
+                className="h-6 cursor-pointer hover:text-gray-500 text-14 xl:text-18 font-400"
                 onClick={onToggleJoinUs}
               >
-                join us
+                join us
               </div>
+
               <Link to="/SignIn">
-                <div className="h-6 text-18 font-400 cursor-pointer hover:text-gray-500">
-                  sign in
+                <div className="h-6 cursor-pointer hover:text-gray-500 text-14 xl:text-18 font-400">
+                  sign in
                 </div>
               </Link>
+
               <div
                 className="relative w-11 h-11 p-1.5 cursor-pointer"
                 onMouseEnter={() => setShoppingBagOpen(true)}
@@ -140,14 +147,14 @@ const Header: React.FC<HeaderProps> = ({
                   </div>
                 )}
               </div>
+
               {isOpen && <MegaMenu />}
             </div>
           </div>
-          {isOpen && <MegaMenu />}
         </div>
       </div>
 
-      <div className="w-full h-0.1 bg-gray-200" />
+      {/* <div className="w-full h-0.1 bg-gray-200" /> */}
     </div>
   );
 };

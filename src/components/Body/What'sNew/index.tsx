@@ -10,7 +10,7 @@ const WhatsNew = () => {
     <div className="mx-00 lg:mx-00 md:mx-00 sm:mx-00 xs:mx-22">
       <div className="w-full flex justify-center mb-15">
         <div className="w-full">
-          <div className="h-13 mb-7 relative flex items-center justify-center w-full">
+          <div className="h-13 mb-7 relative flex items-center justify-center">
             <h3 className="text-40 font-500 text-gray-800 whitespace-nowrap text-center w-full max-w-screen-xl mx-auto ml-0 min-[391px]:ml-28">
               What's new
             </h3>
@@ -20,7 +20,7 @@ const WhatsNew = () => {
           </div>
           <div className="flex justify-center">
             <div
-              className="w-full flex flex-col sm:flex-row sm:gap-[20px] md:gap-[20px] sm:px-0 md:px-0 h-auto sm:h-[390px]"
+              className="flex flex-col sm:flex-row sm:gap-[20px] md:gap-[20px] sm:px-0 md:px-0 h-auto sm:h-[390px]"
               style={{ minHeight: "390px" }}
             >
               <div className="relative group overflow-hidden w-full sm:w-[196px] md:w-[240px] h-[200px] sm:h-full order-1 lg:w-[545px] lg:h-[360px]">

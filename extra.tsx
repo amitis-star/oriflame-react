@@ -1,14 +1,7 @@
-// import React from "react";
+// import React, { useState, ChangeEvent, FocusEvent } from "react";
 // import { Link } from "react-router-dom";
-// import LeftArrow from "./src/assets/icons/LeftArrow";
-// import InfoCircleIcon from "./src/assets/icons/InfoCircleIcon";
-// import EyeIcon from "./src/assets/icons/EyeIcon";
 
-// const SignIn() => {
-  
-//   return(
-
-//   )
+// const SignIn: React.FC = () => {
+//   const [showPassword, setShowPassword] = useState<boolean>(false);
+//   const [username, setUsername] = useState<string>("")
 // }
-
-// export default SignIn;

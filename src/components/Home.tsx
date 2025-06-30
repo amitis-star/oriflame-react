@@ -34,10 +34,10 @@ const Home = () => {
             : ""
         }`}
       >
-        <SwiperImage />
-        <Body />
+        {/* <SwiperImage /> */}
+        {/* <Body />
         <Footer />
-        <ChatWithUs />
+        <ChatWithUs /> */}
       </div>
     </>
   );
