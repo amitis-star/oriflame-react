@@ -2,7 +2,6 @@ import React from "react";
 import "../../../assets/styles/index.css";
 import whatsnew from "../../../assets/images/what's-new.webp";
 import Opt from "../../../assets/images/opt-whats-new.webp";
-import TheOneWhatsNew from "../../../assets/images/theone-whats-new.webp";
 import Card from "../../elements/Card/index";
 
 const WhatsNew = () => {
@@ -54,18 +53,6 @@ const WhatsNew = () => {
                   price={12.99}
                   originalPrice={17.0}
                 />
-                <div className="hidden lg:block">
-                  <Card
-                    image={TheOneWhatsNew}
-                    alt="opt"
-                    isNew={true}
-                    stars={4}
-                    category="THE ONES"
-                    title="5 in 1 Wonder Lash Prom Queen Mascara - Black"
-                    price={6.99}
-                    originalPrice={13.0}
-                  />
-                </div>
               </div>
             </div>
           </div>

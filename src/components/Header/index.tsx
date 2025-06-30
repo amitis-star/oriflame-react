@@ -140,7 +140,7 @@ const Header: React.FC<HeaderProps> = ({
         order-3 lg:order-2
         w-full lg:flex-1
         lg:min-w-0
-        mt-2 lg:mt-0 h-11
+        mt-2 lg:mt-0 h-11 mb-4 lg:mb-00
       "
           >
             <div className="relative z-50 h-full w-full lg:px-2">
