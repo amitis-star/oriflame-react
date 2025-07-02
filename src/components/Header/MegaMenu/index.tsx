@@ -1,4 +1,11 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  ReactNode,
+} from "react";
+import { createPortal } from "react-dom";
 import "../../../assets/styles/index.css";
 import ECatalouge from "../../../assets/icons/ECatalogue";
 import RightArrow from "../../../assets/icons/RightArrow";
@@ -119,26 +126,29 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ show, onClose }) => {
       );
     };
 
-    balanceHeights(); // run once
+    balanceHeights();
     window.addEventListener("resize", balanceHeights);
     return () => window.removeEventListener("resize", balanceHeights);
   }, [activePanel]);
 
-  if (!show) return null;
+  if (!show || typeof window === "undefined") return null;
 
   /* ─────────── RENDER ─────────── */
-  return (
-    <div>
+  const overlay: ReactNode = (
+    <div className="fixed inset-00 z-[1100]">
+      {/* Dark/blur background */}
+      <div className="absolute inset-00 bg-black/50 backdrop-blur-sm transition-opacity duration-300" />
+      {/* Menu itself */}
       <div
         ref={menuRef}
-        className="flex absolute left-0 top-[100px] h-[660px] max-h-[990px] w-fit bg-white shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
+        className="absolute left-00 top-[100px] h-[660px] max-h-[990px] w-fit bg-white shadow-[0_4px_12px_rgba(0,0,0,0.2)] flex"
       >
-        {/* ───── LEFT PANEL ───── */}
+        {/* LEFT PANEL */}
         <div
           ref={leftPanelRef}
           className="w-[278px] flex-none bg-white py-2.5 overflow-y-auto h-full left-panel-scrollbar-hidden"
         >
-          {/* top menu */}
+          {/* Top buttons */}
           <div className="mb-2.5">
             {menuItemsTop.map(({ key, icon, label }) => (
               <div
@@ -163,7 +173,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ show, onClose }) => {
             ))}
           </div>
 
-          {/* categories */}
+          {/* Category list */}
           <div className="mb-2.5">
             {categoryItems.map(({ label, border, bg }, idx) => (
               <div
@@ -179,7 +189,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ show, onClose }) => {
             ))}
           </div>
 
-          {/* footer items */}
+          {/* Footer quick links */}
           <div className="mb-6">
             {footerItems.map((item, idx) => (
               <div
@@ -192,17 +202,12 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ show, onClose }) => {
           </div>
         </div>
 
-        {/* ───── RIGHT PANEL ───── */}
+        {/* RIGHT PANEL */}
         <div
           ref={rightPanelRef}
-          onScroll={() => {
-            if (leftPanelRef.current && rightPanelRef.current) {
-              leftPanelRef.current.scrollTop = rightPanelRef.current.scrollTop;
-            }
-          }}
           className="flex-none relative overflow-y-auto h-full w-fit"
         >
-          {/*   PANEL CONTENTS   */}
+          {/* Default (catalogue) */}
           {activePanel === "none" && (
             <div className="px-6 py-4 flex flex-col gap-10 min-h-full h-[990px] w-full bg-white">
               {/* ...default panel... */}
@@ -237,6 +242,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ show, onClose }) => {
             </div>
           )}
 
+          {/* Inspiration */}
           {activePanel === "inspiration" && (
             <div className="min-h-full p-6 h-[990px] flex gap-10 whitespace-nowrap bg-white">
               {inspirationCards.map(({ image, text }, idx) => (
@@ -250,7 +256,7 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ show, onClose }) => {
                       alt={`inspiration-${idx}`}
                       className="w-full h-[225px] object-cover transition-all duration-300 group-hover:bg-black group-hover:brightness-75 rounded-2xl"
                     />
-                    <button className="absolute bottom-4 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-black text-gray-200 px-4 py-2 text-sm font-semibold rounded-full">
+                    <button className="absolute bottom-4 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-black text-gray-200 px-4 py-2 text-sm font-semibold rounded-full">
                       VIEW
                     </button>
                   </div>
@@ -262,17 +268,17 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ show, onClose }) => {
             </div>
           )}
 
+          {/* Favorites */}
           {activePanel === "favorite" && (
             <div className="min-h-full p-6 h-[990px] bg-rose-50 w-[600px]">
               <h2 className="text-2xl font-bold mb-6 text-rose-700">
                 Your Favorites
               </h2>
-              <div className="grid grid-cols-3 gap-6">
-                {/* favorite items */}
-              </div>
+              <div className="grid grid-cols-3 gap-6">{/* … */}</div>
             </div>
           )}
 
+          {/* Nutrition */}
           {activePanel === "nutrition" && (
             <div className="min-h-full p-6 h-[885px] w-[900px] bg-white">
               <div className="p-7.5 flex items-center cursor-pointer">
@@ -303,12 +309,15 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ show, onClose }) => {
             </div>
           )}
 
-          {/* spacer to balance height */}
+          {/* Spacer for height balance */}
           <div ref={spacerRef} className="w-full" />
         </div>
       </div>
     </div>
   );
+
+  /* Use a portal so the overlay is NOT inside the header */
+  return createPortal(overlay, document.body);
 };
 
 export default MegaMenu;
