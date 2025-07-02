@@ -45,7 +45,7 @@ const HamburgerToggle: React.FC<HamburgerToggleProps> = ({
         }`}
       />
       <div
-        className={`w-6 h-0.2 bg-gray-700 mb-2 transition-all ${
+        className={`w-6 h-0.2 mr-[3px] bg-gray-700 mb-2 transition-all ${
           isOpen
             ? "opacity-0 translate-x-12 duration-700 ease-in-out"
             : "opacity-100 translate-x-0 duration-300 ease-in-out"

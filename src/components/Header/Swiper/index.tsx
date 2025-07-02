@@ -47,7 +47,7 @@ const SwiperImage = () => {
               alt={`slide-${index}`}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 flex items-center justify-end px-4 md:px-16 lg:px-24">
+            <div className="absolute inset-00 flex items-center justify-end px-4 md:px-16 lg:px-24">
               <div className="p-4 md:p-6 lg:p-8 max-w-md text-right">
                 <p className="text-xs md:text-sm text-gray-600 tracking-wide uppercase mb-2 font-medium lg:text-20">
                   {slide.subtitle}

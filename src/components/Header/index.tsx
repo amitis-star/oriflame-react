@@ -93,7 +93,7 @@ const Header: React.FC<HeaderProps> = ({
 
       <div className="container-fluid px-4">
         <div className="flex flex-wrap items-center h-auto lg:h-16">
-           <div className="flex items-center gap-6 h-11 w-auto lg:w-[18%]">
+          <div className="flex items-center gap-6 h-11 w-auto lg:w-[18%]">
             <HamburgerMenu
               isOpen={isOpen}
               onToggle={setIsOpen}
@@ -133,7 +133,7 @@ const Header: React.FC<HeaderProps> = ({
               )}
             </div>
 
-            {isOpen && <MegaMenu />}
+            <MegaMenu show={isOpen} onClose={() => setIsOpen(false)} />
           </div>
           <div
             className="
