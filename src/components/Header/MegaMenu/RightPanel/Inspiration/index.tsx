@@ -16,8 +16,9 @@ const inspirationCards = [
 const InspirationPanel: React.FC = () => (
   <div
     className="
+    hidden lg:flex
     p-6 bg-white
-    flex lg:flex-wrap xl:flex-nowrap
+    lg:flex-wrap xl:flex-nowrap
     gap-x-10       
     lg:gap-y-2      
     xl:gap-y-0      

@@ -72,11 +72,10 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ show, onClose }) => {
   if (!show || typeof window === "undefined") return null;
 
   const overlay: ReactNode = (
-    <div className="fixed inset-00 z-[1100]">
-      <div className="absolute inset-00 bg-black/50 backdrop-blur-sm transition-opacity duration-300" />
+    <div className="fixed w-full h-full inset-00   z-[110] bg-black/50 backdrop-blur-sm transition-opacity duration-300">
       <div
         ref={menuRef}
-        className="absolute left-00 top-[100px] h-[660px] max-h-[990px] w-fit bg-white shadow-[0_4px_12px_rgba(0,0,0,0.2)] flex"
+        className="absolute left-00 top-00 lg:top-[100px] h-[660px] max-h-[990px] w-fit bg-white shadow-[0_4px_12px_rgba(0,0,0,0.2)] flex"
       >
         <LeftPanel
           ref={leftPanelRef}

@@ -15,6 +15,7 @@ const NutritionItems = [
 const NutritionPanel: React.FC = () => (
   <div
     className="
+    hidden lg:block
       p-6 bg-white
       lg:w-[614px]       
       xl:w-[900px]      

@@ -53,7 +53,7 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <div className="container-fluid m-00 p-00 sticky top-00 z-[1200] bg-white">
+    <div className="container-fluid m-00 p-00 sticky top-00 lg:z-[130] z-[100] bg-white">
       {isTyping && (
         <div
           className={`fixed w-full h-full backdrop-blur-[2px] bg-black/40 z-40 box-border pointer-events-none transition-opacity duration-[5000ms] delay-[2000ms] ${

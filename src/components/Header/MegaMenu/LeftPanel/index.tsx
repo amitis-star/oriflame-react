@@ -13,11 +13,7 @@ const menuItemsTop = [
 ];
 
 const categoryItems = [
-  {
-    label: "Nutrition",
-    border: "border-violet-600",
-    bg: "hover:bg-violet-100",
-  },
+  { label: "Nutrition", border: "border-violet-600", bg: "hover:bg-violet-100" },
   { label: "Skincare", border: "border-teal-300", bg: "hover:bg-teal-100" },
   { label: "Make up", border: "border-rose-400", bg: "hover:bg-rose-100" },
   { label: "Fragrance", border: "border-stone-400", bg: "hover:bg-stone-100" },
@@ -47,7 +43,7 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
     return (
       <div
         ref={ref}
-        className="w-[278px] flex-none bg-white py-2.5 overflow-y-auto h-full left-panel-scrollbar-hidden"
+        className="w-[278px] flex-none bg-white py-2.5 overflow-y-auto left-panel-scrollbar-hidden min-h-screen border border-gray-200"
       >
         <div className="mb-2.5">
           {menuItemsTop.map(({ key, icon, label }) => (

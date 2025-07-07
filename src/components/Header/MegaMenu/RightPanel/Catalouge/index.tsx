@@ -2,7 +2,7 @@ import React from "react";
 import IngredientLibrary from "../../../../../assets/images/IngredientLibrary.webp";
 
 const CataloguePanel: React.FC = () => (
-  <div className="px-6 py-4 flex flex-col gap-10 min-h-full h-[990px] w-full bg-white">
+  <div className="hidden lg:flex px-6 py-4 flex-col gap-10 min-h-full h-[990px] w-full bg-white">
     <div className="flex justify-center items-end mt-7.5 mx-7.5">
       <div className="w-31 h-[293px] flex flex-col justify-between">
         <div className="relative group rounded-2xl overflow-hidden">
