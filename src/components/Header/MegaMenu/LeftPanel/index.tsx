@@ -6,9 +6,6 @@ import Heart from "../../../../assets/icons/Heart";
 import MenuItem from "./MenuItem";
 import CategoryItem from "./CategoryItem";
 
-/* ------------------------------------------------------------------
- *  Data
- * ---------------------------------------------------------------- */
 const menuItemsTop = [
   { key: "ecat", icon: <ECatalogue />, label: "e Catalogue" },
   { key: "inspiration", icon: <InspirationIcon />, label: "Inspiration" },
@@ -40,9 +37,6 @@ const footerItems = [
   "Beauty Rewards Programme",
 ];
 
-/* ------------------------------------------------------------------
- *  Component
- * ---------------------------------------------------------------- */
 interface Props {
   activePanel: PanelType;
   setActivePanel: (p: PanelType) => void;
@@ -55,7 +49,6 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
         ref={ref}
         className="w-[278px] flex-none bg-white py-2.5 overflow-y-auto h-full left-panel-scrollbar-hidden"
       >
-        {/* Top menu ‑‑ icons */}
         <div className="mb-2.5">
           {menuItemsTop.map(({ key, icon, label }) => (
             <MenuItem
@@ -78,8 +71,6 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
             />
           ))}
         </div>
-
-        {/* Categories */}
         <div className="mb-2.5">
           {categoryItems.map(({ label, border, bg }, idx) => (
             <CategoryItem
@@ -94,8 +85,6 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
             />
           ))}
         </div>
-
-        {/* Footer links */}
         <div className="mb-6">
           {footerItems.map((item, idx) => (
             <div

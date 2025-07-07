@@ -59,7 +59,6 @@ const MegaMenu: React.FC<MegaMenuProps> = ({ show, onClose }) => {
     const balanceHeights = () => {
       const gap = left.scrollHeight - right.scrollHeight;
       spacerRef.current?.style.setProperty(
-        // <- add “?.”
         "height",
         gap > 0 ? `${gap}px` : "0px"
       );

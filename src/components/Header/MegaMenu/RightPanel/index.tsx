@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import { PanelType } from "../types";
 import CataloguePanel from "./Catalouge/index";
-import InspirationPanel from "./Inspiration/InspirationPanel";
+import InspirationPanel from "./Inspiration";
 import FavoritePanel from "./Favorite/index";
 import NutritionPanel from "./Nutrition/index";
 

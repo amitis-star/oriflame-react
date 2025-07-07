@@ -12,7 +12,7 @@ import Search from "../../assets/icons/Search";
 import Store from "../../assets/icons/Store";
 import ShoppingBag from "../elements/ShoppingBag";
 import BlackStore from "../../assets/icons/BlackStore";
-import MegaMenu from "./MegaMenu";
+import MegaMenu from "./MegaMenu/index";
 import Profile from "../../assets/icons/Profile";
 
 interface HeaderProps {
