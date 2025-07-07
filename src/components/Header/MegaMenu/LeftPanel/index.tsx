@@ -50,29 +50,52 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
         ref={ref}
         className="w-[278px] flex-none bg-white py-2.5 overflow-y-auto left-panel-scrollbar-hidden min-h-screen border border-gray-200"
       >
-        {/* <CatalogueLg /> */}
         <div className="mb-2.5">
-          {menuItemsTop.map(({ key, icon, label }) => (
-            <MenuItem
-              key={key}
-              icon={icon}
-              label={label}
-              onClick={() =>
-                setActivePanel(
-                  key === "inspiration"
-                    ? "inspiration"
-                    : key === "favorite"
-                    ? "favorite"
-                    : "none"
-                )
-              }
-              isActive={
-                (key === "inspiration" && activePanel === "inspiration") ||
-                (key === "favorite" && activePanel === "favorite")
-              }
-            />
-          ))}
+          {menuItemsTop.map(({ key, icon, label }) => {
+            if (key === "ecat") {
+              return (
+                <React.Fragment key={key}>
+                  {/* Show only on mobile */}
+                  <div className="block lg:hidden">
+                    <CatalogueLg />
+                  </div>
+
+                  {/* Show only on desktop */}
+                  <div className="hidden lg:block">
+                    <MenuItem
+                      icon={icon}
+                      label={label}
+                      onClick={() => setActivePanel("none")}
+                      isActive={false}
+                    />
+                  </div>
+                </React.Fragment>
+              );
+            }
+
+            return (
+              <MenuItem
+                key={key}
+                icon={icon}
+                label={label}
+                onClick={() =>
+                  setActivePanel(
+                    key === "inspiration"
+                      ? "inspiration"
+                      : key === "favorite"
+                      ? "favorite"
+                      : "none"
+                  )
+                }
+                isActive={
+                  (key === "inspiration" && activePanel === "inspiration") ||
+                  (key === "favorite" && activePanel === "favorite")
+                }
+              />
+            );
+          })}
         </div>
+
         <div className="mb-2.5">
           {categoryItems.map(({ label, border, bg }, idx) => (
             <CategoryItem
@@ -87,6 +110,7 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
             />
           ))}
         </div>
+
         <div className="mb-6">
           {footerItems.map((item, idx) => (
             <div

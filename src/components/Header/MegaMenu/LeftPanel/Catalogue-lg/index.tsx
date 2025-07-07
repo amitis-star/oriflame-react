@@ -1,30 +1,33 @@
 import React from "react";
-import IngredientLibrary from "../../../../../assets/images/IngredientLibrary.webp";
 import RightArrow from "../../../../../assets/icons/RightArrow";
+import IngredientLibrary from "../../../../../assets/images/IngredientLibrary.webp";
 
-const CataloguePanel: React.FC = () => (
-  <div className="hidden lg:flex py-4 flex-col gap-10 min-h-full h-[990px] w-full bg-white">
-    {/* Main Catalogue Item */}
-    <div className="h-[103px] flex items-center justify-between gap-2 bg-white hover:bg-blue-100 rounded-2xl px-4 py-2.5 cursor-pointer">
-      {/* Image */}
+const CatalogueLg: React.FC = () => (
+  <div className="w-full h-[160px] relative cursor-pointer px-[15px]">
+    <div className="flex h-[103px] items-center justify-between rounded-2xl shadow-xl">
       <img
         src={IngredientLibrary}
-        alt="catalogue"
-        className="w-[85px] h-[85px] rounded-2xl object-cover"
+        alt="Catalogue"
+        className="w-20 h-full rounded-l-2xl object-cover"
       />
-
-      {/* Text content */}
-      <div className="flex flex-col justify-center items-start flex-1 ml-4">
-        <p className="text-14 text-gray-600 font-300">19/06‑09/07</p>
-        <p className="text-17 text-gray-800 font-600">CATALOGUE 09</p>
+      <div className="w-[137px] h-23 px-4 py-2.5 flex flex-col justify-center">
+        <p className="text-14 text-gray-600 font-300 leading-none">
+          19/06‑09/07
+        </p>
+        <p className="text-17 text-gray-800 font-600 leading-tight">
+          CATALOGUE 09
+        </p>
       </div>
-
-      {/* Arrow */}
-      <div className="ml-auto">
+      <div className=" mr-2.5">
         <RightArrow />
       </div>
+    </div>
+    <div className="mt-4">
+      <p className="w-fit h-5 text-12 border-b-2 border-black m-auto text-gray-700 font-600">
+        SEE ALL
+      </p>
     </div>
   </div>
 );
 
-export default CataloguePanel;
+export default CatalogueLg;
