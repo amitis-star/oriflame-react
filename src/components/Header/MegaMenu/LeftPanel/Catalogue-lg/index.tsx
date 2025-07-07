@@ -1,26 +1,30 @@
-// import React from "react";
-// import RightArrow from "../../../../../assets/icons/RightArrow";
+import React from "react";
+import IngredientLibrary from "../../../../../assets/images/IngredientLibrary.webp";
+import RightArrow from "../../../../../assets/icons/RightArrow";
 
-// interface Props {
-//   icon: React.ReactNode;
-//   label: string;
-//   onClick: () => void;
-//   isActive?: boolean;
-// }
+const CataloguePanel: React.FC = () => (
+  <div className="hidden lg:flex py-4 flex-col gap-10 min-h-full h-[990px] w-full bg-white">
+    {/* Main Catalogue Item */}
+    <div className="h-[103px] flex items-center justify-between gap-2 bg-white hover:bg-blue-100 rounded-2xl px-4 py-2.5 cursor-pointer">
+      {/* Image */}
+      <img
+        src={IngredientLibrary}
+        alt="catalogue"
+        className="w-[85px] h-[85px] rounded-2xl object-cover"
+      />
 
-// const CatalogueLg: React.FC<Props> = ({ icon, label, onClick, isActive }) => (
-//   <div
-//     onClick={onClick}
-//     className={`w-full h-13 flex justify-between items-center px-[15px] py-2.5 cursor-pointer ${
-//       isActive ? "bg-blue-100" : "hover:bg-blue-100"
-//     }`}
-//   >
-//     <div className="flex items-center gap-2">
-//       {icon}
-//       <p className="text-20 font-600 text-gray-800">{label}</p>
-//     </div>
-//     <RightArrow />
-//   </div>
-// );
+      {/* Text content */}
+      <div className="flex flex-col justify-center items-start flex-1 ml-4">
+        <p className="text-14 text-gray-600 font-300">19/06‑09/07</p>
+        <p className="text-17 text-gray-800 font-600">CATALOGUE 09</p>
+      </div>
 
-// export default CatalogueLg;
+      {/* Arrow */}
+      <div className="ml-auto">
+        <RightArrow />
+      </div>
+    </div>
+  </div>
+);
+
+export default CataloguePanel;
