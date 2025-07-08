@@ -10,7 +10,7 @@ const CatalogueLg: React.FC = () => (
         alt="Catalogue"
         className="w-20 h-full rounded-l-2xl object-cover"
       />
-      <div className="w-[137px] h-23 px-4 py-2.5 flex flex-col justify-center">
+      <div className="w-[137px] h-23 px-4 py-2.5 flex flex-col justify-center gap-5">
         <p className="text-14 text-gray-600 font-300 leading-none">
           19/06‑09/07
         </p>

@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import { PanelType } from "../types";
 import ECatalogue from "../../../../assets/icons/ECatalogue";
 import InspirationIcon from "../../../../assets/icons/InspirationIcon";
@@ -6,12 +6,15 @@ import Heart from "../../../../assets/icons/Heart";
 import MenuItem from "./MenuItem";
 import CategoryItem from "./CategoryItem";
 import CatalogueLg from "./Catalogue-lg";
+import DownArrow from "../../../../assets/icons/DownArrow";
 
 const menuItemsTop = [
   { key: "ecat", icon: <ECatalogue />, label: "e Catalogue" },
   { key: "inspiration", icon: <InspirationIcon />, label: "Inspiration" },
   { key: "favorite", icon: <Heart />, label: "Favorite" },
-];
+] as const;
+
+type MenuItemTopKey = (typeof menuItemsTop)[number]["key"];
 
 const categoryItems = [
   {
@@ -38,6 +41,13 @@ const footerItems = [
   "Beauty Rewards Programme",
 ];
 
+const inspirationSubItems = [
+  "Foundation Finder",
+  "Ingredient Library",
+  "Icon",
+  "Pick a Scent for Your Mood",
+];
+
 interface Props {
   activePanel: PanelType;
   setActivePanel: (p: PanelType) => void;
@@ -45,6 +55,15 @@ interface Props {
 
 const LeftPanel = forwardRef<HTMLDivElement, Props>(
   ({ activePanel, setActivePanel }, ref) => {
+    const [open, setOpen] = useState<Record<MenuItemTopKey, boolean>>({
+      inspiration: false,
+      favorite: false,
+      ecat: false,
+    });
+
+    const toggle = (key: MenuItemTopKey) =>
+      setOpen((prev) => ({ ...prev, [key]: !prev[key] }));
+
     return (
       <div
         ref={ref}
@@ -55,12 +74,9 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
             if (key === "ecat") {
               return (
                 <React.Fragment key={key}>
-                  {/* Show only on mobile */}
                   <div className="block lg:hidden">
                     <CatalogueLg />
                   </div>
-
-                  {/* Show only on desktop */}
                   <div className="hidden lg:block">
                     <MenuItem
                       icon={icon}
@@ -73,29 +89,68 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
               );
             }
 
+            const isActiveDesktop =
+              (key === "inspiration" && activePanel === "inspiration") ||
+              (key === "favorite" && activePanel === "favorite");
+
             return (
-              <MenuItem
-                key={key}
-                icon={icon}
-                label={label}
-                onClick={() =>
-                  setActivePanel(
-                    key === "inspiration"
-                      ? "inspiration"
-                      : key === "favorite"
-                      ? "favorite"
-                      : "none"
-                  )
-                }
-                isActive={
-                  (key === "inspiration" && activePanel === "inspiration") ||
-                  (key === "favorite" && activePanel === "favorite")
-                }
-              />
+              <React.Fragment key={key}>
+                <div className="block lg:hidden">
+                  <button
+                    type="button"
+                    onClick={() => toggle(key as MenuItemTopKey)}
+                    className="flex items-center justify-between w-full h-12.5 px-4 py-2 cursor-pointer"
+                  >
+                    <span className="flex items-center gap-2 text-16 font-700 text-gray-800 ">
+                      {icon}
+                      {label}
+                    </span>
+                    <DownArrow
+                      className={`transition-transform transform ${
+                        open[key as MenuItemTopKey] ? "rotate-0" : "-rotate-90"
+                      }`}
+                    />
+                  </button>
+                  {open[key as MenuItemTopKey] && (
+                    <div className="pl-8 pr-4 pb-2 flex flex-col gap-y-3 mt-3">
+                      {key === "inspiration" &&
+                        inspirationSubItems.map((item) => (
+                          <div
+                            key={item}
+                            className="text-16 font-400 text-gray-600 cursor-pointer hover:text-green-600"
+                          >
+                            {item}
+                          </div>
+                        ))}
+
+                      {key === "favorite" && (
+                        <div className="text-14 font-400 text-gray-500 italic">
+                          i will do this later :)
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+                <div className="hidden lg:block">
+                  <MenuItem
+                    icon={icon}
+                    label={label}
+                    onClick={() =>
+                      setActivePanel(
+                        key === "inspiration"
+                          ? "inspiration"
+                          : key === "favorite"
+                          ? "favorite"
+                          : "none"
+                      )
+                    }
+                    isActive={isActiveDesktop}
+                  />
+                </div>
+              </React.Fragment>
             );
           })}
         </div>
-
         <div className="mb-2.5">
           {categoryItems.map(({ label, border, bg }, idx) => (
             <CategoryItem
