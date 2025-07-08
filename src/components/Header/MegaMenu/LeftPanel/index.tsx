@@ -16,7 +16,13 @@ const menuItemsTop = [
 
 type MenuItemTopKey = (typeof menuItemsTop)[number]["key"];
 
-const categoryItems = [
+type Category = {
+  label: string;
+  border: string;
+  bg: string;
+};
+
+const categoryItems: Category[] = [
   {
     label: "Nutrition",
     border: "border-violet-600",
@@ -48,6 +54,27 @@ const inspirationSubItems = [
   "Pick a Scent for Your Mood",
 ];
 
+const categorySubItems: Record<string, string[]> = {
+  Nutrition: [
+    "Daily wellbeing",
+    "Gut Health",
+    "Weight management",
+    "Beauty",
+    "Health agening",
+    "Immunity",
+    "Kids",
+    "Brands",
+  ],
+  Skincare: [],
+  "Make up": [],
+  Fragrance: [],
+  "Bath & Body": [],
+  Hair: [],
+  Accessories: [],
+  Men: [],
+  "Kids & Baby": [],
+};
+
 interface Props {
   activePanel: PanelType;
   setActivePanel: (p: PanelType) => void;
@@ -61,8 +88,18 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
       ecat: false,
     });
 
+    const initialCatState = Object.fromEntries(
+      categoryItems.map(({ label }) => [label, false])
+    ) as Record<string, boolean>;
+
+    const [openCat, setOpenCat] =
+      useState<Record<string, boolean>>(initialCatState);
+
     const toggle = (key: MenuItemTopKey) =>
       setOpen((prev) => ({ ...prev, [key]: !prev[key] }));
+
+    const toggleCat = (label: string) =>
+      setOpenCat((prev) => ({ ...prev, [label]: !prev[label] }));
 
     return (
       <div
@@ -101,17 +138,18 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
                     onClick={() => toggle(key as MenuItemTopKey)}
                     className="flex items-center justify-between w-full h-12.5 px-4 py-2 cursor-pointer"
                   >
-                    <span className="flex items-center gap-2 text-16 font-700 text-gray-800 ">
+                    <span className="flex items-center gap-2 text-16 font-700 text-gray-800">
                       {icon}
                       {label}
                     </span>
                     <DownArrow
                       className={`transition-transform transform ${
-                        open[key as MenuItemTopKey] ? "rotate-0" : "-rotate-90"
+                        open[key] ? "rotate-0" : "-rotate-90"
                       }`}
                     />
                   </button>
-                  {open[key as MenuItemTopKey] && (
+
+                  {open[key] && (
                     <div className="pl-8 pr-4 pb-2 flex flex-col gap-y-3 mt-3">
                       {key === "inspiration" &&
                         inspirationSubItems.map((item) => (
@@ -122,15 +160,15 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
                             {item}
                           </div>
                         ))}
-
                       {key === "favorite" && (
-                        <div className="text-14 font-400 text-gray-500 italic">
-                          i will do this later :)
+                        <div className="text-14 font-400 text-gray-500">
+                          i will do this later
                         </div>
                       )}
                     </div>
                   )}
                 </div>
+
                 <div className="hidden lg:block">
                   <MenuItem
                     icon={icon}
@@ -151,25 +189,67 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
             );
           })}
         </div>
+
         <div className="mb-2.5">
-          {categoryItems.map(({ label, border, bg }, idx) => (
-            <CategoryItem
-              key={idx}
-              label={label}
-              border={border}
-              bg={bg}
-              onClick={() =>
-                setActivePanel(label === "Nutrition" ? "nutrition" : "none")
-              }
-              isActive={label === "Nutrition" && activePanel === "nutrition"}
-            />
+          {categoryItems.map(({ label, border, bg }) => (
+            <React.Fragment key={label}>
+              <div className="block lg:hidden">
+                <>
+                  <button
+                    type="button"
+                    onClick={() => toggleCat(label)}
+                    className={`flex items-center justify-between w-full h-12.5 px-4 py-2 text-18 font-600 text-gray-800 cursor-pointer ${bg} ${border} border-l-4`}
+                  >
+                    {label}
+                    <DownArrow
+                      className={`transition-transform transform ${
+                        openCat[label] ? "rotate-0" : "-rotate-90"
+                      }`}
+                    />
+                  </button>
+
+                  {openCat[label] && (
+                    <div className="pl-8 pr-4 pb-2 flex flex-col gap-y-3 mt-3">
+                      {categorySubItems[label]?.length ? (
+                        categorySubItems[label].map((item) => (
+                          <div
+                            key={item}
+                            className="text-16 font-400 text-gray-600 cursor-pointer hover:text-green-600"
+                          >
+                            {item}
+                          </div>
+                        ))
+                      ) : (
+                        <div className="text-14 font-400 text-gray-500 hover:text-green-600">
+                          More coming soon
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </>
+              </div>
+
+              <div className="hidden lg:block">
+                <CategoryItem
+                  label={label}
+                  border={border}
+                  bg={bg}
+                  onClick={() =>
+                    setActivePanel(label === "Nutrition" ? "nutrition" : "none")
+                  }
+                  isActive={
+                    label === "Nutrition" && activePanel === "nutrition"
+                  }
+                />
+              </div>
+            </React.Fragment>
           ))}
         </div>
 
         <div className="mb-6">
-          {footerItems.map((item, idx) => (
+          {footerItems.map((item) => (
             <div
-              key={idx}
+              key={item}
               className="w-full h-12.5 px-[15px] py-2.5 text-16 font-400 text-gray-600 cursor-pointer hover:bg-gray-200"
             >
               {item}
