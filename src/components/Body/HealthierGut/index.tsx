@@ -46,6 +46,7 @@ const HealthierGut = () => {
           <div className="flex justify-center flex-nowrap flex-shrink-0 sm:w-auto">
             <div className="w-[192px] xs:w-[192px] sm:w-[218px] md:w-[218px] lg:w-[230px] flex-shrink-0 gap-4">
               <Card
+                id={11}
                 image={WellosphyGreen}
                 alt="WellosphyGreen"
                 isNew={false}
@@ -59,6 +60,7 @@ const HealthierGut = () => {
 
             <div className="w-[192px] xs:w-[192px] sm:w-[218px] md:w-[218px] lg:w-[230px] flex-shrink-0">
               <Card
+                id={12}
                 image={WellosphyRed}
                 alt="WellosphyRed"
                 isNew={false}

@@ -39,6 +39,7 @@ const BestOffers = () => {
           <div className="flex flex-nowrap sm:flex-nowrap gap-6 flex-grow order-2 sm:order-1 justify-center cards-wrap-425 order-cards-425">
             <div className="w-1/2 md:w-[189px] lg:w-[208px] card-50w-425">
               <Card
+              id={7}
                 image={Possess}
                 alt="possess"
                 isNew={false}
@@ -52,6 +53,7 @@ const BestOffers = () => {
 
             <div className="w-1/2 md:w-[189px] lg:w-[208px] card-50w-425">
               <Card
+              id={8}
                 image={LipBalm}
                 alt="lip balm"
                 isNew={false}
@@ -65,6 +67,7 @@ const BestOffers = () => {
 
             <div className="hidden lg:block card-50w-425 show-on-425 w-1/2 lg:w-[208px]">
               <Card
+              id={9}
                 image={FacialOil}
                 alt="Facial Oil"
                 isNew={false}
@@ -78,6 +81,7 @@ const BestOffers = () => {
 
             <div className="hidden xl:block card-50w-425 show-on-425 w-1/2 lg:w-[208px]">
               <Card
+              id={10}
                 image={AmberElixer}
                 alt="Amber Elixer"
                 isNew={false}

@@ -3,13 +3,19 @@ import ReactDOM from "react-dom/client";
 import "./assets/styles/index.css";
 import App from "./App";
 
+import { FavoritesProvider } from "./components/elements/FavoritesContext/index";
+import { CartProvider } from "./components/elements/CartContext/index";
+
 const rootElement = document.getElementById("root");
 
 if (rootElement) {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
+  ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-      <App />
+      <FavoritesProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </FavoritesProvider>
     </React.StrictMode>
   );
 } else {

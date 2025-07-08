@@ -34,6 +34,7 @@ const WhatsNew = () => {
               </div>
               <div className="flex flex-nowrap gap-5 w-full sm:flex-1 h-auto sm:h-full order-2">
                 <Card
+                  id={1}
                   image={Opt}
                   alt="opt"
                   isNew={true}
@@ -44,6 +45,7 @@ const WhatsNew = () => {
                   originalPrice={20.0}
                 />
                 <Card
+                  id={2}
                   image={Opt}
                   alt="opt"
                   isNew={true}

@@ -42,6 +42,7 @@ const IconsofOurTime = () => {
           />
           <div className="hidden sm:grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-3 w-full">
             <Card
+              id={3}
               image={TheOneWhatsNew}
               alt="opt"
               isNew={true}
@@ -52,6 +53,7 @@ const IconsofOurTime = () => {
               originalPrice={20.0}
             />
             <Card
+              id={4}
               image={MilkandHoney}
               alt="opt"
               isNew={false}
@@ -63,6 +65,7 @@ const IconsofOurTime = () => {
             />
             <div className="hidden lg:block">
               <Card
+                id={5}
                 image={TenderCare}
                 alt="opt"
                 isNew={true}
@@ -75,6 +78,7 @@ const IconsofOurTime = () => {
             </div>
             <div className="hidden xl:block">
               <Card
+                id={6}
                 image={RoyalVelvet}
                 alt="opt"
                 isNew={false}
@@ -89,6 +93,7 @@ const IconsofOurTime = () => {
           <div className="sm:hidden flex flex-col gap-3 w-full">
             <div className="flex gap-3 justify-center">
               <Card
+                id={3}
                 image={TheOneWhatsNew}
                 alt="opt"
                 isNew={true}
@@ -99,6 +104,7 @@ const IconsofOurTime = () => {
                 originalPrice={20.0}
               />
               <Card
+                id={4}
                 image={MilkandHoney}
                 alt="opt"
                 isNew={false}
@@ -111,6 +117,7 @@ const IconsofOurTime = () => {
             </div>
             <div className="flex gap-3 justify-center">
               <Card
+                id={5}
                 image={TenderCare}
                 alt="opt"
                 isNew={true}
@@ -121,6 +128,7 @@ const IconsofOurTime = () => {
                 originalPrice={17.0}
               />
               <Card
+                id={6}
                 image={RoyalVelvet}
                 alt="opt"
                 isNew={false}

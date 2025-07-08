@@ -7,6 +7,7 @@ import MenuItem from "./MenuItem";
 import CategoryItem from "./CategoryItem";
 import CatalogueLg from "./Catalogue-lg";
 import DownArrow from "../../../../assets/icons/DownArrow";
+import FavoritesList from "../../../elements/FavoritesContext/FavoritesList";
 
 const menuItemsTop = [
   { key: "ecat", icon: <ECatalogue />, label: "e Catalogue" },
@@ -150,7 +151,7 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
                   </button>
 
                   {open[key] && (
-                    <div className="pl-8 pr-4 pb-2 flex flex-col gap-y-3 mt-3">
+                    <div className="px-4 pb-2 flex flex-col gap-y-3 mt-3">
                       {key === "inspiration" &&
                         inspirationSubItems.map((item) => (
                           <div
@@ -161,8 +162,8 @@ const LeftPanel = forwardRef<HTMLDivElement, Props>(
                           </div>
                         ))}
                       {key === "favorite" && (
-                        <div className="text-14 font-400 text-gray-500">
-                          i will do this later
+                        <div className="text-14 font-400 text-gray-500 max-h-60 overflow-y-auto">
+                          <FavoritesList compact />
                         </div>
                       )}
                     </div>

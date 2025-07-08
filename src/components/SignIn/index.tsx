@@ -51,7 +51,6 @@ const SignIn: React.FC = () => {
     }
   };
 
-  // Tooltip with fixed width and wrapped text
   const wrappedTooltip = (text: string) => {
     return (
       <span
@@ -75,14 +74,13 @@ const SignIn: React.FC = () => {
       <div className="flex justify-center min-h-screen">
         <div className="relative w-[390px] md:w-[450px] h-[450px] rounded-lg bg-white px-4 md:px-15 py-7.5 md:mt-12.5 mt-0">
           <Link to="/">
-            <LeftArrow className="absolute top-7 left-4 w-[40px] h-[40px] text-gray-800" />
+            <LeftArrow className="absolute top-7 left-4 w-10 h-10 text-gray-800" />
           </Link>
 
           <p className="px-[25px] mb-[25px] text-center text-25 font-600 text-black">
             Sign in
           </p>
 
-          {/* Username */}
           <div
             className={`relative w-full h-12.5 border-b-2 transition duration-300 ${
               usernameError
@@ -152,7 +150,6 @@ const SignIn: React.FC = () => {
             Sign in with mobile phone
           </div>
 
-          {/* Password */}
           <div
             className={`relative w-full h-12.5 border-b-2 transition duration-300 mt-6 flex items-center ${
               passwordError

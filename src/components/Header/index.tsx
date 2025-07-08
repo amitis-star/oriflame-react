@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../../assets/styles/index.css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -26,6 +27,7 @@ const Header: React.FC<HeaderProps> = ({
   setShoppingBagOpen,
   onToggleJoinUs,
 }) => {
+  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
   const [isTyping, setIsTyping] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -49,6 +51,13 @@ const Header: React.FC<HeaderProps> = ({
       hasText
         ? xIcon.classList.remove("hidden")
         : xIcon.classList.add("hidden");
+    }
+  };
+  const handleStoreClick = () => {
+    if (window.innerWidth < 470) {
+      navigate("/ShoppinBagMobile");
+    } else {
+      setShoppingBagOpen((prev) => !prev);
     }
   };
 
@@ -120,28 +129,31 @@ const Header: React.FC<HeaderProps> = ({
               </div>
             </Link>
 
-            <div
-              className="relative w-11 h-11 p-1.5 cursor-pointer"
-              onMouseEnter={() => setShoppingBagOpen(true)}
-              onMouseLeave={() => setShoppingBagOpen(false)}
-            >
-              {isShoppingBagOpen ? <BlackStore /> : <Store />}
+            <div className="relative">
+              <div
+                className="w-11 h-11 p-1.5 cursor-pointer select-none"
+                onClick={handleStoreClick}
+              >
+                {isShoppingBagOpen ? <BlackStore /> : <Store />}
+              </div>
+
               {isShoppingBagOpen && (
-                <div className="absolute left-full ml-4 z-[1100]">
-                  <ShoppingBag />
+                <div className="hidden xx:block absolute left-full ml-4 z-[1100]">
+                  <ShoppingBag onClose={() => setShoppingBagOpen(false)} />
                 </div>
               )}
             </div>
 
             <MegaMenu show={isOpen} onClose={() => setIsOpen(false)} />
           </div>
+
           <div
             className="
-        order-3 lg:order-2
-        w-full lg:flex-1
-        lg:min-w-0
-        mt-2 lg:mt-0 h-11 mb-4 lg:mb-00
-      "
+              order-3 lg:order-2
+              w-full lg:flex-1
+              lg:min-w-0
+              mt-2 lg:mt-0 h-11 mb-4 lg:mb-00
+            "
           >
             <div className="relative z-50 h-full w-full lg:px-2">
               <div className="bg-gray-200 h-full rounded-full flex items-center px-4">

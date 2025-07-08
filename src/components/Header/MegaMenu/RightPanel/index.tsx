@@ -21,8 +21,6 @@ const RightPanel = forwardRef<HTMLDivElement, Props>(
         {activePanel === "inspiration" && <InspirationPanel />}
         {activePanel === "favorite" && <FavoritePanel />}
         {activePanel === "nutrition" && <NutritionPanel />}
-
-        {/* Spacer balances the scroll heights of the two panes */}
         <div ref={spacerRef} className="w-full" />
       </div>
     );
