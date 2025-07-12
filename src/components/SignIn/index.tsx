@@ -7,17 +7,17 @@ import CrossedEyeIcon from "../../assets/icons/CrossedEyeIcon";
 import ErrorIcon from "../../assets/icons/Error";
 
 const SignIn: React.FC = () => {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const [username, setUsername] = useState<string>("");
-  const [usernameHasTyped, setUsernameHasTyped] = useState<boolean>(false);
-  const [usernameError, setUsernameError] = useState<boolean>(false);
+  const [username, setUsername] = useState("");
+  const [usernameHasTyped, setUsernameHasTyped] = useState(false);
+  const [usernameError, setUsernameError] = useState(false);
 
-  const [password, setPassword] = useState<string>("");
-  const [passwordHasTyped, setPasswordHasTyped] = useState<boolean>(false);
-  const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [password, setPassword] = useState("");
+  const [passwordHasTyped, setPasswordHasTyped] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
-  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setUsername(val);
     if (val.length > 0) {
@@ -26,15 +26,13 @@ const SignIn: React.FC = () => {
     }
   };
 
-  const handleUsernameBlur = (e: FocusEvent<HTMLInputElement>): void => {
+  const handleUsernameBlur = async (e: FocusEvent<HTMLInputElement>) => {
     if (usernameHasTyped && username.length === 0) {
       setUsernameError(true);
-    } else {
-      setUsernameError(false);
     }
   };
 
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setPassword(val);
     if (val.length > 0) {
@@ -43,31 +41,71 @@ const SignIn: React.FC = () => {
     }
   };
 
-  const handlePasswordBlur = (e: FocusEvent<HTMLInputElement>): void => {
+  const handlePasswordBlur = (e: FocusEvent<HTMLInputElement>) => {
     if (passwordHasTyped && password.length === 0) {
       setPasswordError(true);
-    } else {
-      setPasswordError(false);
     }
   };
 
-  const wrappedTooltip = (text: string) => {
-    return (
-      <span
-        className="
-          absolute top-full mt-1 left-1/2 transform -translate-x-1/2
-          bg-gray-200 text-black rounded px-2 py-1 opacity-0 pointer-events-none
-          transition-opacity duration-300 text-center
-          group-hover:opacity-100
-          break-words
-        "
-        style={{ width: "300px", fontSize: "12px" }}
-        aria-hidden="true"
-      >
-        {text}
-      </span>
-    );
+  const validateCredentials = async (
+    usernameOrEmail: string,
+    password: string
+  ): Promise<boolean> => {
+    try {
+      const response = await fetch("https://dummyjson.com/users");
+      const data = await response.json();
+      const users = data.users;
+
+      const match = users.find((user: any) => {
+        const isUsernameMatch =
+          user.username.toLowerCase() === usernameOrEmail.toLowerCase();
+        const isEmailMatch =
+          user.email.toLowerCase() === usernameOrEmail.toLowerCase();
+        const isPasswordMatch = user.password === password;
+
+        return (isUsernameMatch || isEmailMatch) && isPasswordMatch;
+      });
+
+      return !!match;
+    } catch (err) {
+      console.error("API error:", err);
+      return false;
+    }
   };
+
+  const handleSubmit = async () => {
+    if (!username || !password) {
+      setUsernameError(!username);
+      setPasswordError(!password);
+      return;
+    }
+
+    const isValid = await validateCredentials(username, password);
+
+    if (isValid) {
+      console.log("Login success");
+    } else {
+      console.warn("Invalid credentials");
+      setUsernameError(true);
+      setPasswordError(true);
+    }
+  };
+
+  const wrappedTooltip = (text: string) => (
+    <span
+      className="
+        absolute top-full mt-1 left-1/2 transform -translate-x-1/2
+        bg-gray-200 text-black rounded px-2 py-1 opacity-0 pointer-events-none
+        transition-opacity duration-300 text-center
+        group-hover:opacity-100
+        break-words
+      "
+      style={{ width: "300px", fontSize: "12px" }}
+      aria-hidden="true"
+    >
+      {text}
+    </span>
+  );
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -80,7 +118,6 @@ const SignIn: React.FC = () => {
           <p className="px-[25px] mb-[25px] text-center text-25 font-600 text-black">
             Sign in
           </p>
-
           <div
             className={`relative w-full h-12.5 border-b-2 transition duration-300 ${
               usernameError
@@ -99,24 +136,23 @@ const SignIn: React.FC = () => {
               onChange={handleUsernameChange}
               onBlur={handleUsernameBlur}
             />
-
             <label
               htmlFor="username"
               className={`absolute left-2 transition-all duration-300 origin-left
-                peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:${
-                  usernameError ? "text-red-600" : "text-gray-500"
-                }
-                peer-focus:-top-4 peer-focus:scale-75 peer-focus:${
-                  usernameError ? "text-red-600" : "text-green-600"
-                }
-                ${
-                  usernameError
-                    ? "-top-4 scale-75 text-red-600"
-                    : username && !usernameError
-                    ? "-top-4 scale-75 text-green-600"
-                    : ""
-                }
-              `}
+              peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:${
+                usernameError ? "text-red-600" : "text-gray-500"
+              }
+              peer-focus:-top-4 peer-focus:scale-75 peer-focus:${
+                usernameError ? "text-red-600" : "text-green-600"
+              }
+              ${
+                usernameError
+                  ? "-top-4 scale-75 text-red-600"
+                  : username && !usernameError
+                  ? "-top-4 scale-75 text-green-600"
+                  : ""
+              }
+            `}
             >
               Member number or e-mail
             </label>
@@ -125,26 +161,24 @@ const SignIn: React.FC = () => {
               {usernameError ? (
                 <>
                   <ErrorIcon className="text-red-800 w-6 h-6" />
-                  {wrappedTooltip("Enter email or brand partner number.")}
+                  {wrappedTooltip("Enter a valid email or username.")}
                 </>
               ) : (
                 <>
                   <InfoCircleIcon className="text-gray-500 w-6 h-6" />
                   {wrappedTooltip(
-                    "You can sign in using your consultant number email or telephone number."
+                    "You can sign in using your consultant number, email, or phone number."
                   )}
                 </>
               )}
             </div>
           </div>
 
-          <div className="flex flex-col space-y-1 ml-1 mt-1">
-            {usernameError && (
-              <p className="text-red-600 text-12 font-400">
-                Username is required.
-              </p>
-            )}
-          </div>
+          {usernameError && (
+            <p className="text-red-600 text-12 font-400 ml-1 mt-1">
+              Username is required or incorrect.
+            </p>
+          )}
 
           <div className="text-12 text-gray-600 font-400 underline hover:text-emerald-600 cursor-pointer mt-2 leading-none">
             Sign in with mobile phone
@@ -171,20 +205,20 @@ const SignIn: React.FC = () => {
             <label
               htmlFor="password"
               className={`absolute left-2 transition-all duration-300 origin-left
-                peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:${
-                  passwordError ? "text-red-600" : "text-gray-500"
-                }
-                peer-focus:-top-4 peer-focus:scale-75 peer-focus:${
-                  passwordError ? "text-red-600" : "text-green-600"
-                }
-                ${
-                  passwordError
-                    ? "-top-4 scale-75 text-red-600"
-                    : password && !passwordError
-                    ? "-top-4 scale-75 text-green-600"
-                    : ""
-                }
-              `}
+              peer-placeholder-shown:top-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:${
+                passwordError ? "text-red-600" : "text-gray-500"
+              }
+              peer-focus:-top-4 peer-focus:scale-75 peer-focus:${
+                passwordError ? "text-red-600" : "text-green-600"
+              }
+              ${
+                passwordError
+                  ? "-top-4 scale-75 text-red-600"
+                  : password && !passwordError
+                  ? "-top-4 scale-75 text-green-600"
+                  : ""
+              }
+            `}
             >
               Password
             </label>
@@ -198,15 +232,19 @@ const SignIn: React.FC = () => {
               {showPassword ? <CrossedEyeIcon /> : <EyeIcon />}
             </button>
 
-            <div className="group ml-2 relative cursor-pointer">
-              {passwordError && (
-                <>
-                  <ErrorIcon className="text-red-800 w-6 h-6" />
-                  {wrappedTooltip("Enter password")}
-                </>
-              )}
-            </div>
+            {passwordError && (
+              <div className="group ml-2 relative cursor-pointer">
+                <ErrorIcon className="text-red-800 w-6 h-6" />
+                {wrappedTooltip("Enter your password.")}
+              </div>
+            )}
           </div>
+
+          {passwordError && (
+            <p className="text-red-600 text-12 font-400 ml-1 mt-1">
+              Password is required.
+            </p>
+          )}
 
           <div className="text-12 text-gray-600 font-400 underline hover:text-emerald-600 transition duration-300 cursor-pointer mt-2">
             Forgot your password?
@@ -226,7 +264,10 @@ const SignIn: React.FC = () => {
             </div>
           </div>
 
-          <button className="w-full rounded-full h-11.5 bg-black text-white font-600 text-16 mb-2.5 py-2.5 px-5 mt-7.5 hover:bg-neutral-500 transition duration-300 cursor-pointer">
+          <button
+            onClick={handleSubmit}
+            className="w-full rounded-full h-11.5 bg-black text-white font-600 text-16 mb-2.5 py-2.5 px-5 mt-7.5 hover:bg-neutral-500 transition duration-300 cursor-pointer"
+          >
             SIGN IN
           </button>
 

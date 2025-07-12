@@ -1,17 +1,18 @@
 import React from "react";
 import { useCart } from "../CartContext";
-import { products } from "../Products";
+import { useProducts } from "../Products";
 import CartList from "../CartContext/CartList";
 import "../../../assets/styles/index.css";
 import LeftArrow from "../../../assets/icons/LeftArrow";
+
 export interface ShoppingBagProps {
   onClose: () => void;
 }
 
-
 const ShoppingBag: React.FC<ShoppingBagProps> = ({ onClose }) => {
-
   const { cart } = useCart();
+  const { products } = useProducts();
+
   const cartItems = products.filter((p) => cart.has(p.id));
   const isEmpty = cartItems.length === 0;
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
@@ -23,15 +24,8 @@ const ShoppingBag: React.FC<ShoppingBagProps> = ({ onClose }) => {
         onClick={onClose}
       />
       <div
-        className="
-          fixed top-00 right-00 z-[110]      
-          lg:top-[100px] lg:right-[-20px]     
-          lg:bottom-00 lg:h-auto                
-          h-full w-60                           
-          bg-white
-          p-6 pb-8 flex flex-col
-        "
-        onClick={(e) => e.stopPropagation()} 
+        className="fixed top-00 right-00 z-[110] lg:top-[100px] lg:right-[-20px] lg:bottom-00 lg:h-auto h-full w-60 bg-white p-6 pb-8 flex flex-col"
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center mb-4">
           <button
@@ -42,7 +36,7 @@ const ShoppingBag: React.FC<ShoppingBagProps> = ({ onClose }) => {
             <LeftArrow className="w-10 h-10" />
           </button>
           <p className="text-20 font-500 text-gray-800 ml-auto lg:ml-0">
-            basket&nbsp;({cartItems.length})
+            basket ({cartItems.length})
           </p>
         </div>
         <div className="flex-1 overflow-y-auto mb-4">

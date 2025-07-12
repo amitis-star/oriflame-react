@@ -14,7 +14,7 @@ const BestOffers = () => {
           <h3 className="text-40 font-700 text-gray-800 text-center mb-3">
             Best offers
           </h3>
-          <button className="hidden lg:block w-27 h-11 rounded-full py-3 text-black text-14 border-gray-800 border-solid border-2 absolute right-0 bottom-0 font-500 leading-3 hover:bg-gray-200">
+          <button className="hidden lg:block w-27 h-11 rounded-full py-3 text-black text-14 border-gray-800 border-solid border-2 absolute right-00 bottom-00 font-500 leading-3 hover:bg-gray-200">
             View all
           </button>
         </div>

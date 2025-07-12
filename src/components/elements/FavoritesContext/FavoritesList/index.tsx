@@ -1,7 +1,7 @@
 import React from "react";
 import { useFavorites } from "../../FavoritesContext";
 import { useCart } from "../../CartContext";
-import { products } from "../../Products";
+import { useProducts } from "../../Products";
 import CrossIcon from "../../../../assets/icons/CrossIcon";
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
 const FavoritesList: React.FC<Props> = ({ compact = false }) => {
   const { favorites, toggleFavorite } = useFavorites();
   const { inCart, toggleCart } = useCart();
+  const { products } = useProducts();
 
   const favoriteItems = products.filter((item) => favorites.has(item.id));
 

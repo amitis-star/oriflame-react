@@ -15,8 +15,8 @@ const OriflameOnMe = () => {
             </button>
           </div>
           <p className="mb-10 font-300 text-12 text-gray-700 text-center mt-5">
-            Share your amazing looks with{" "}
-            <span className="font-700">@oriflame</span> and{" "}
+            Share your amazing looks with
+            <span className="font-700">@oriflame</span> and
             <span className="font-900">#Oriflame On Me</span>
           </p>
         </div>
